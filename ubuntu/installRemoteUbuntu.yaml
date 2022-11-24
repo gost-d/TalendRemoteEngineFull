@@ -49,7 +49,7 @@
     - name: Install Remote Engine
       become: true
       ansible.builtin.shell: |
-        cd /home/"{{ ansible_user }}"/Talend-RemoteEngine-V"{{ tre_version }}"/bin
+        cd '/home/{{ ansible_user }}/Talend-RemoteEngine-V{{ tre_version }}/bin'
         echo "feature:install wrapper \n wrapper:install -n talend-remote-engine \n logout" | sh trun
       environment: 
         JAVA_HOME: /usr/lib/jvm/java-1.11.0-openjdk-amd64
