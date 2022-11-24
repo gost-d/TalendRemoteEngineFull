@@ -7,7 +7,7 @@ node {
     stage('Copy Talend Remote Engine files') {
         
         withCredentials([usernamePassword(credentialsId: 'nexus_user', usernameVariable: 'nexus_username', passwordVariable: 'nexus_password')]) {
-            sh('curl -u "admin:admin123" -o "./Talend-RemoteEngine-V${tre_version}.zip" "http://172.22.6.131:8081/repository/DEVOPS/talend_remote_engine/v/${tre_version}/v-${tre_version}.zip" ')
+            sh('curl -u "admin:admin123" -o "./Talend-RemoteEngine-V${tre_version}.zip" "http://172.22.6.131:8081/repository/devops/talend_remote_engine/v/${tre_version}/v-${tre_version}.zip" ')
         }
     }
     
