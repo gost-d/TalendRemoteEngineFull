@@ -16,7 +16,7 @@ node {
             if (params.ostype == 'windows') {
                 sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/root --env AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID --env AZURE_CLIENT_ID=$AZURE_CLIENT_ID --env AZURE_SECRET=$AZURE_CLIENT_SECRET --env AZURE_TENANT=$AZURE_TENANT_ID --rm ghostd/talend:firsttry ansible-playbook /root/windows/createVM.yaml')
             } else {
-                sh('ssh-keygen -q -t rsa -N "" -f ./id_rsa -y')
+                sh('ssh-keygen -q -t rsa -N "" -f ./id_rsa')
                 sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend-Remote-Engine:/root --env AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID --env AZURE_CLIENT_ID=$AZURE_CLIENT_ID --env AZURE_SECRET=$AZURE_CLIENT_SECRET --env AZURE_TENANT=$AZURE_TENANT_ID --rm ghostd/talend:firsttry ansible-playbook /root/ubuntu/createVM.yaml')
 
             }
