@@ -50,7 +50,7 @@
       become: true
       ansible.builtin.shell: |
         cd '/home/{{ ansible_user }}/Talend-RemoteEngine-V{{ tre_version }}/bin'
-        echo -e "feature:install wrapper \n wrapper:install -n talend-remote-engine \n logout" | sh trun
+        (echo feature:install wrapper; echo wrapper:install -n talend-remote-engine; echo logout) | sh trun 
       environment: 
         JAVA_HOME: /usr/lib/jvm/java-1.11.0-openjdk-amd64
     - name: Copy talend-remote-engine.service
