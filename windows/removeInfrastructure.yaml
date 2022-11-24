@@ -1,0 +1,38 @@
+- name: Remove Azure Infrastructure
+  hosts: localhost
+  connection: local
+  tasks:
+  - name: CRemove VM
+    azure_rm_virtualmachine:
+      resource_group: winGroup
+      name: winTalendVM
+      remove_on_absent: all_autocreated
+      state: absent 
+  - name: Remove virtual network interface card
+    azure_rm_networkinterface:
+      resource_group: winGroup
+      name: nic
+      state: absent 
+    register: output_ip_address
+  - name: Remove Network Security Group 
+    azure_rm_securitygroup:
+      resource_group: winGroup
+      name: networkSecurityGroup
+      state: absent 
+  - name: Remove public IP
+    azure_rm_publicipaddress:
+      resource_group: winGroup
+      #allocation_method: Static
+      name: windowsTalendPublicIP
+      state: absent
+  - name: Remove subnet
+    azure_rm_subnet:
+      resource_group: winGroup
+      name: windowsTalendSubnet
+      virtual_network: ansibleNet
+      state: absent
+  - name: Remove virtual network
+    azure_rm_virtualnetwork:
+      resource_group: winGroup
+      name: windowsTalendNet
+      state: absent 
