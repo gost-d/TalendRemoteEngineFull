@@ -1,0 +1,70 @@
+---
+- name: Install Remote Engine
+  hosts: all
+  
+  vars:
+    ansible_user: azureuser
+    ansible_password: Temporary123
+    ansible_connection: winrm
+    ansible_port: 5986
+    ansible_winrm_server_cert_validation: ignore
+    jdk_package: openjdk11
+    java_major_version: 11.0.16
+    java_minor_version: 8
+  
+  tasks:
+
+  - name: Install Java
+    win_chocolatey:
+      name: "{{ jdk_package }}"
+      state: present
+      version: "{{ java_major_version }}"
+
+  - name: Set Java_home
+    win_environment:
+      state: present
+      name: JAVA_HOME
+      value: 'c:\Program Files\OpenJDK\openjdk-{{ java_major_version }}_{{ java_minor_version }}'
+      level: machine
+
+  - name: Add Java to path
+    win_path:
+      elements:
+        - 'c:\program files\java\OpenJDK\openjdk-{{ java_major_version }}_{{ java_minor_version }}\bin'
+
+  - name: Download AzCopy 
+    ansible.windows.win_get_url:
+      url: https://aka.ms/downloadazcopy-v10-windows
+      dest: C:\Users\azureuser\AzCopy.zip
+      force: no
+  
+  - name: Unzip AzCopy 
+    community.windows.win_unzip:
+      src: C:\Users\azureuser\AzCopy.zip
+      dest: C:\Users\azureuser\AzCopy
+
+  - name: Prepare AzCopy and download Talend Remote Engine
+    ansible.windows.win_powershell:
+      script: |
+        cd C:\Users\azureuser\
+        ./AzCopy/*/azcopy.exe copy 'https://ansibletest12345678.blob.core.windows.net/ansible-test/Talend-RemoteEngine-V2.11.7-229.zip?sp=r&st=2022-11-21T08:23:03Z&se=2022-11-23T16:23:03Z&spr=https&sv=2021-06-08&sr=c&sig=FGq%2FB%2Bx6QccYnvZHvVTzhScvGyPSJU5ld0Ygj74cCgQ%3D' C:\Users\azureuser\
+
+  - name: Unzip a Talend Remote Engine file
+    community.windows.win_unzip:
+      src: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}-229.zip'
+      dest: C:\Users\azureuser\
+        
+  - name: Install Talend Remote Engine
+    ansible.windows.win_powershell:
+      script: |
+        cd C:\Users\azureuser\Talend-RemoteEngine-V"{{ tre_version }}"\bin
+        echo "feature:install wrapper `nwrapper:install -n talend-remote-engine `nlogout" | .\trun.bat
+        .\talend-remote-engine-service.bat install
+
+  - name: Set service startup mode to auto and ensure it is started
+    ansible.windows.win_service:
+      name: 'talend-remote-engine'
+      start_mode: auto
+      state: started
+
+
