@@ -37,15 +37,15 @@
       src: '/root/Talend-RemoteEngine-V{{ tre_version }}.zip'
       dest: C:\Users\azureuser
   
-  - name: Copy Talend Remote Engine file
-    win_copy:
-      src: /root/preauthorized.key.cfg
-      dest: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}/etc/preauthorized.key.cfg'
-
   - name: Unzip a Talend Remote Engine file
     community.windows.win_unzip:
       src: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}.zip'
       dest: C:\Users\azureuser\
+  
+  - name: Copy Talend Remote Engine file
+    win_copy:
+      src: /root/preauthorized.key.cfg
+      dest: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}/etc/preauthorized.key.cfg'
         
   - name: Install Remote Talend Engine
     ansible.windows.win_powershell:
