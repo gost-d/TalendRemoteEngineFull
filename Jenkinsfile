@@ -7,9 +7,16 @@ node {
     stage('Copy Talend Remote Engine files') {
         
         withCredentials([usernamePassword(credentialsId: 'nexus_user', usernameVariable: 'nexus_username', passwordVariable: 'nexus_password')]) {
-            sh('curl -u "admin:admin123" -o "./Talend-RemoteEngine-V${tre_version}.zip" "http://172.22.6.131:8081/repository/devops/talend_remote_engine/v/${tre_version}/v-${tre_version}.zip" ')
+            sh('curl -u "$nexus_username:nexus_password" -o "./Talend-RemoteEngine-V${tre_version}.zip" "http://172.22.6.131:8081/repository/devops/talend_remote_engine/v/${tre_version}/v-${tre_version}.zip" ')
         }
     }
+
+    stage('Create Talend Remote Engine') {
+        sh('docker pull ghostd/python:1.0')
+        sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend-Remote-Engine:/root --rm ghostd/python:1.0 python3 /root/createEng.py')
+    }
+
+    
     
     stage('Create infrastructure') {
         withCredentials([azureServicePrincipal('AzureJenkins')]) {
