@@ -8,7 +8,6 @@ pToken = "Bearer wHiwDdZWTTasSdvCFIxNmwcSXglP2ozKgnU7qdpKXP1-Sh1z3ygwyJcNkVF6z4H
 talendWorkspaces = "https://api.eu.cloud.talend.com/orchestration/workspaces"
 headers = {'Authorization': pToken}
 
-
 def getWorkSpaceAndEnvIds(env="default", personalToken = pToken):
     """
     Function to get workspace and environment id`s
@@ -62,5 +61,5 @@ def createRemoteEngine(name="testName ", env = "default", personalToken = pToken
 
 
 key, engineName = createRemoteEngine()
-with open('C:\\Users\\User\\Downloads\\preAuthoKey.txt', 'w') as f:
+with open('/home/preAuthoKey.txt', 'w') as f:
     f.write(key)
