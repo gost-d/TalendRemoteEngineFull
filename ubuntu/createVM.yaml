@@ -3,7 +3,7 @@
   connection: local
   tasks:
   
-  - include_vars: ../vars/ubuntu_vars.yml
+  - include_vars: ubuntu_vars.yml
 
   - name: Create resource group
     azure_rm_resourcegroup:
