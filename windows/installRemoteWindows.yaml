@@ -50,7 +50,7 @@
   - name: Copy Talend Remote Engine file
     win_copy:
       src: /root/org.talend.ipaas.rt.pairing.client.cfg
-      dest: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}\etc\org.talend.ipaas.rt.pairing.client.cfg
+      dest: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}\etc\org.talend.ipaas.rt.pairing.client.cfg'
         
   - name: Install Remote Talend Engine
     ansible.windows.win_powershell:
