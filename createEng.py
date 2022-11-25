@@ -4,9 +4,6 @@ import requests as rq
 import json
 from datetime import datetime
 
-pToken = "Bearer jMG-AyprRK6IOJMBtzsqY5xTHcz_kE-H399qA8GXwqTANwSjMnr1HVef_mTy3GQi"
-talendWorkspaces = "https://api.eu.cloud.talend.com/orchestration/workspaces"
-headers = {'Authorization': pToken}
 
 def getWorkSpaceAndEnvIds(env="default", personalToken = pToken):
     """
