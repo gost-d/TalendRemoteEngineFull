@@ -48,6 +48,12 @@
         cd C:\Users\azureuser\Talend-RemoteEngine-V"{{ tre_version }}"\bin
         echo "feature:install wrapper `nwrapper:install -n talend-remote-engine `nlogout" | .\trun.bat
         .\talend-remote-engine-service.bat install
+    register: result 
+    until: result is not failed
+    delay: 10 
+    retries: 5 
+        
+        
   - name: Set service startup mode to auto and ensure it is started
     ansible.windows.win_service:
       name: 'talend-remote-engine'
