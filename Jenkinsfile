@@ -14,7 +14,7 @@ node {
 
     stage('Create Talend Remote Engine') {
         sh('docker pull ghostd/python:1.0')
-        sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend-Remote-Engine:/root --rm ghostd/python:1.0 python3 /root/createEng.py')
+        sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/root --rm ghostd/python:1.0 python3 /root/createEng.py')
     }
 
     
