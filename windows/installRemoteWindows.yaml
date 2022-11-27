@@ -51,7 +51,7 @@
     ansible.builtin.lineinfile:
       path: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}\etc\preauthorized.key.cfg'
       regexp: 'remote.engine.pre.authorized.key'
-        line: "remote.engine.pre.authorized.key = {{ lookup('file','/root/preauthorized.key.cfg') }}"
+      line: "remote.engine.pre.authorized.key = {{ lookup('file','/root/preauthorized.key.cfg') }}"
         
   - name: Install Remote Talend Engine
     ansible.windows.win_powershell:
