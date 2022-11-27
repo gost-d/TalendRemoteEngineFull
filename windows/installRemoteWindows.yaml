@@ -44,17 +44,22 @@
   
   - name: Copy Talend Remote Engine file
     win_copy:
+      src: /root/org.talend.ipaas.rt.pairing.client.cfg
+      dest: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}\etc\org.talend.ipaas.rt.pairing.client.cfg'
+  
+  - name: Copy Talend Remote Engine file
+    win_copy:
       src: /root/preauthorized.key.cfg
       dest: 'C:\Users\azureuser\'
   
   - name: Change configuration files for Talend
-    ansible.builtin.lineinfile:
+    community.windows.win_lineinfile:
       path: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}\etc\preauthorized.key.cfg'
       regexp: 'remote.engine.pre.authorized.key'
       line: "remote.engine.pre.authorized.key = {{ lookup('file','/root/preauthorized.key.cfg') }}"
         
   - name: Install Remote Talend Engine
-    ansible.windows.win_powershell:
+    ansible.windows.win_powershell: 
       script: |
         cd C:\Users\azureuser\Talend-RemoteEngine-V"{{ tre_version }}"\bin
         echo "feature:install wrapper `nwrapper:install -n talend-remote-engine `nlogout" | .\trun.bat
