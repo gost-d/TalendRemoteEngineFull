@@ -14,8 +14,8 @@ node {
     stage('Create Talend Remote Engine') {
         withCredentials([usernamePassword(credentialsId: 'nexus_user', usernameVariable: 'nexus_username', passwordVariable: 'nexus_password')]) {
             sh('docker login -u $nexus_username -p $nexus_password http://172.22.6.131:8083')
-            sh('docker pull http://172.22.6.131:8083/devops/ansible:1.0')
-            sh('docker pull http://172.22.6.131:8083/devops/python:1.1')
+            sh('docker pull 172.22.6.131:8083/devops/ansible:1.0')
+            sh('docker pull 172.22.6.131:8083/devops/python:1.1')
         }
 
         sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/python --rm 172.22.6.131:8083/devops/python:1.1 python3 /home/python/createEng.py')
