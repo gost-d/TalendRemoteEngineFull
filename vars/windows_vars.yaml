@@ -4,19 +4,6 @@ virtual_network: windowsTalendNet
 virtual_subnet: windowsTalendSubnet
 vm_public_ip: windowsTalendPID
 vm_security_group: ubuntuTalendSecurityGroup
-security_group_rules: 
-  - name: SSH
-    protocol: Tcp
-    destination_port_range: 22
-    access: Allow
-    priority: 1001
-    direction: Inbound
-  - name: Talend_port
-    protocol: Tcp
-    destination_port_range: 8043
-    access: Allow
-    priority: 1000
-    direction: Inbound
 vm_network_interface: windowsNIC
 vm_name: winTalendVM
 vm_size: Standard_D4s_v3
