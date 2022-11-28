@@ -4,7 +4,7 @@
   connection: local
   tasks:
 
-  - include_vars: /root/vars/windows_vars.yaml
+  - include_vars: /home/ansible/vars/windows_vars.yaml
 
 
   - name: Create resource group
