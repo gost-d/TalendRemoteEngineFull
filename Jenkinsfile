@@ -26,10 +26,10 @@ node {
         withCredentials([azureServicePrincipal('AzureJenkins')]) {
             
             if (params.ostype == 'windows') {
-                sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/ansible --env AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID --env AZURE_CLIENT_ID=$AZURE_CLIENT_ID --env AZURE_SECRET=$AZURE_CLIENT_SECRET --env AZURE_TENANT=$AZURE_TENANT_ID --rm ghostd/talend:firsttry ansible-playbook /home/ansible/${ostype}/createVM.yaml')
+                sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/ansible --env AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID --env AZURE_CLIENT_ID=$AZURE_CLIENT_ID --env AZURE_SECRET=$AZURE_CLIENT_SECRET --env AZURE_TENANT=$AZURE_TENANT_ID --rm --rm 172.22.6.131:8083/devops/ansible:1.0  ansible-playbook /home/ansible/${ostype}/createVM.yaml')
             } else {
                 sh('echo "yes" | ssh-keygen -q -t rsa -N "" -f ./id_rsa')
-                sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/ansible --env AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID --env AZURE_CLIENT_ID=$AZURE_CLIENT_ID --env AZURE_SECRET=$AZURE_CLIENT_SECRET --env AZURE_TENANT=$AZURE_TENANT_ID --rm ghostd/talend:firsttry ansible-playbook /home/ansible/${ostype}/createVM.yaml')
+                sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/ansible --env AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID --env AZURE_CLIENT_ID=$AZURE_CLIENT_ID --env AZURE_SECRET=$AZURE_CLIENT_SECRET --env AZURE_TENANT=$AZURE_TENANT_ID --rm --rm 172.22.6.131:8083/devops/ansible:1.0  ansible-playbook /home/ansible/${ostype}/createVM.yaml')
 
             }
 
@@ -39,9 +39,9 @@ node {
     stage('Install Talend Remote Engine') {
         withCredentials([azureServicePrincipal('AzureJenkins')]) {
             if (params.ostype == 'windows') {
-                 sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/ansible --env AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID --env AZURE_CLIENT_ID=$AZURE_CLIENT_ID --env AZURE_SECRET=$AZURE_CLIENT_SECRET --env AZURE_TENANT=$AZURE_TENANT_ID --env ANSIBLE_HOST_KEY_CHECKING=False --rm ghostd/talend:firsttry ansible-playbook -vvv -i /home/ansible/${ostype}/azure_rm.yaml --extra-vars "tre_version=$tre_version" /home/ansible/${ostype}/installRemoteWindows.yaml')
+                 sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/ansible --env AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID --env AZURE_CLIENT_ID=$AZURE_CLIENT_ID --env AZURE_SECRET=$AZURE_CLIENT_SECRET --env AZURE_TENANT=$AZURE_TENANT_ID --env ANSIBLE_HOST_KEY_CHECKING=False --rm --rm 172.22.6.131:8083/devops/ansible:1.0  ansible-playbook -vvv -i /home/ansible/${ostype}/azure_rm.yaml --extra-vars "tre_version=$tre_version" /home/ansible/${ostype}/installRemoteWindows.yaml')
             } else {
-                sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/ansible --env AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID --env AZURE_CLIENT_ID=$AZURE_CLIENT_ID --env AZURE_SECRET=$AZURE_CLIENT_SECRET --env AZURE_TENANT=$AZURE_TENANT_ID --rm ghostd/talend:firsttry ansible-playbook -vvv -i /home/ansible/${ostype}/azure_rm.yaml -u azureuser --private-key /home/ansible/id_rsa --extra-vars "tre_version=$tre_version ansible_host_key_checking=false" /home/ansible/${ostype}/installRemoteUbuntu.yaml')
+                sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/ansible --env AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID --env AZURE_CLIENT_ID=$AZURE_CLIENT_ID --env AZURE_SECRET=$AZURE_CLIENT_SECRET --env AZURE_TENANT=$AZURE_TENANT_ID --rm --rm 172.22.6.131:8083/devops/ansible:1.0  ansible-playbook -vvv -i /home/ansible/${ostype}/azure_rm.yaml -u azureuser --private-key /home/ansible/id_rsa --extra-vars "tre_version=$tre_version ansible_host_key_checking=false" /home/ansible/${ostype}/installRemoteUbuntu.yaml')
             }
         }   
     }
