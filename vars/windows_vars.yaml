@@ -3,7 +3,7 @@ vm_location: eastus
 virtual_network: windowsTalendNet
 virtual_subnet: windowsTalendSubnet
 vm_public_ip: windowsTalendPID
-vm_security_group: ubuntuTalendSecurityGroup
+vm_security_group: windowsTalendSecurityGroup
 vm_network_interface: windowsNIC
 vm_name: winTalendVM
 vm_size: Standard_D4s_v3
