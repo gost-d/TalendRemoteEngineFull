@@ -23,12 +23,12 @@
     - name: Download Talend Remote Engine 
       become: yes
       ansible.builtin.copy:
-        src: '/root/Talend-RemoteEngine-V{{ tre_version }}.zip'
+        src: '/home/ansible/Talend-RemoteEngine-V{{ tre_version }}.zip'
         dest: '/home/{{ ansible_user }}/'
     
     - name: Copy key for Talend Remote Engine 
       ansible.builtin.copy:
-        src: /root/preauthorized.key.cfg
+        src: /home/ansible/preauthorized.key.cfg
         dest: '/home/{{ ansible_user }}/'
         mode: '0644'
     

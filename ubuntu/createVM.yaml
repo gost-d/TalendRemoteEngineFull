@@ -3,7 +3,7 @@
   connection: local
   tasks:
   
-  - include_vars: /root/vars/ubuntu_vars.yaml
+  - include_vars: /home/ansible/vars/ubuntu_vars.yaml
 
   - name: Create resource group
     azure_rm_resourcegroup:
@@ -63,7 +63,7 @@
       ssh_password_enabled: false
       ssh_public_keys:
         - path: /home/azureuser/.ssh/authorized_keys
-          key_data: "{{ lookup('file', '/root/id_rsa.pub') }}"
+          key_data: "{{ lookup('file', '/home/ansible/id_rsa.pub') }}"
       network_interfaces: "{{ vm_network_interface }}"
       image:
         offer: "{{ os_offer }}"
