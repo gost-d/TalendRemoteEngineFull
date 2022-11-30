@@ -59,7 +59,7 @@
       line: "remote.engine.pre.authorized.key = {{ lookup('file','/home/ansible/preauthorized.key.cfg') }}"
   
   - name: Change jobserver config file for Talend Sudio connection
-    ansible.builtin.lineinfile:
+    community.windows.win_lineinfile:
       path: 'C:\Users\azureuser\Talend-RemoteEngine-V{{ tre_version }}\etc\org.talend.remote.jobserver.server.cfg'
       regexp: "{{ item.var1 }}"
       line: "{{ item.var2 }}"

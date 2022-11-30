@@ -2,6 +2,9 @@
   hosts: localhost
   connection: local
   tasks:
+  
+  - include_vars: /root/vars/windows_vars.yaml  
+
   - name: CRemove VM
     azure_rm_virtualmachine:
       resource_group: "{{vm_resource_group}}"
