@@ -74,7 +74,7 @@
   - name: Get facts for one Public IP
     azure_rm_publicipaddress_info:
       resource_group: "{{vm_resource_group}}"
-      name: publicIPinfo
+      name: "{{ vm_public_ip }}"
     register: publicipaddresses
 
   - name: Print public IP 
