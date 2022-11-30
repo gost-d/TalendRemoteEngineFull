@@ -99,15 +99,6 @@
           sku: "{{ vm_sku }}"
           version: "{{ os_version }}"
 
-  - name: Enable firewall for Domain, Public and Private profiles
-    community.windows.win_firewall:
-      state: disabled
-      profiles:
-      - Domain
-      - Private
-      - Public
-    tags: disable_firewall
-
   - name: Create VM script extension to enable HTTPS WinRM listener
     azure_rm_virtualmachineextension:
       name: winrm-extension

@@ -31,6 +31,14 @@
     win_path:
       elements:
         - 'c:\program files\java\OpenJDK\openjdk-{{ java_major_version }}_{{ java_minor_version }}\bin'
+  - name: Enable firewall for Domain, Public and Private profiles
+    community.windows.win_firewall:
+      state: disabled
+      profiles:
+      - Domain
+      - Private
+      - Public
+    tags: disable_firewall
 
   - name: Copy Talend Remote Engine file
     win_copy:
