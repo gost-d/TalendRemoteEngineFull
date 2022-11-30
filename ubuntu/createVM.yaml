@@ -70,3 +70,16 @@
         publisher: "{{ os_publisher }}"
         sku: "{{ vm_sku }}"
         version: "{{ os_version }}"
+  
+  - name: Get facts for one Public IP
+    azure_rm_publicipaddress_info:
+      resource_group: "{{vm_resource_group}}"
+      name: publicIPinfo
+    register: publicipaddresses
+  - name: set public ip address fact
+    set_fact: publicipaddress="{{ publicipaddresses | json_query('publicipaddresses[0].ip_address')}}"
+
+  - name: Save Public IP to file 
+    ansible.builtin.lineinfile:
+      path: /home/ansible/ubuntuPublicIP.txt 
+      line: '{{ publicipaddress }}'
