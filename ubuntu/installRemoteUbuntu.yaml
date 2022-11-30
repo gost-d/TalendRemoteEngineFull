@@ -55,7 +55,7 @@
     - name: Change jobserver config file for Talend Sudio connection
       ansible.builtin.lineinfile:
         path: /home/{{ ansible_user }}/Talend-RemoteEngine-V{{ tre_version }}/etc/org.talend.remote.jobserver.server.cfg
-                regexp: "{{ item.var1 }}"
+        regexp: "{{ item.var1 }}"
         line: "{{ item.var2 }}"
       with_items: 
         - { var1: "org.talend.remote.jobserver.server.TalendJobServer.COMMAND_SERVER_HOST=*", var2: org.talend.remote.jobserver.server.TalendJobServer.COMMAND_SERVER_HOST=0.0.0.0 }
