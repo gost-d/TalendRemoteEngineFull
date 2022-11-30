@@ -80,7 +80,7 @@
         dest: /etc/systemd/system/
         remote_src: true 
     - name: Start Talend Remote Engine service
-      ansible.builtin.copy:
+      ansible.builtin.service:
         name: talend-remote-engine.service
         state: started
         enabled: yes

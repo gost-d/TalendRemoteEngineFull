@@ -46,6 +46,17 @@
           access: Allow
           priority: 1000
           direction: Inbound
+        - name: Talend_command_port
+          protocol: Tcp
+          destination_port_range: 8003
+          access: Allow
+          priority: 1003
+        - name: Talend_file_port
+          protocol: Tcp
+          destination_port_range: 8004
+          access: Allow
+          priority: 1004
+          direction: Inbound
   - name: Create virtual network interface card
     azure_rm_networkinterface:
       resource_group: "{{vm_resource_group}}"
@@ -77,10 +88,6 @@
       name: "{{ vm_public_ip }}"
     register: publicipaddresses
 
-  - name: Print public IP 
-    ansible.builtin.debug:
-      msg: "{{ publicipaddresses }}"
-
   - name: set public ip address fact
     set_fact: publicipaddress="{{ publicipaddresses | json_query('publicipaddresses[0].ip_address')}}"
 
@@ -88,4 +95,6 @@
     ansible.builtin.copy:
       dest: /home/ansible/ubuntuPublicIP.txt 
       content: "{{ publicipaddress }}"
+  
+  
   
