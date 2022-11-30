@@ -80,6 +80,6 @@
     set_fact: publicipaddress="{{ publicipaddresses | json_query('publicipaddresses[0].ip_address')}}"
 
   - name: Save Public IP to file 
-    ansible.builtin.lineinfile:
+    ansible.builtin.copy:
       dest: /home/ansible/ubuntuPublicIP.txt 
       content: '{{ publicipaddress }}'
