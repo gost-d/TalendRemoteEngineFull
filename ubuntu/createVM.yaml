@@ -81,5 +81,5 @@
 
   - name: Save Public IP to file 
     ansible.builtin.lineinfile:
-      path: /home/ansible/ubuntuPublicIP.txt 
-      line: '{{ publicipaddress }}'
+      dest: /home/ansible/ubuntuPublicIP.txt 
+      content: '{{ publicipaddress }}'
