@@ -79,7 +79,7 @@
     ansible.windows.win_powershell: 
       script: |
         cd C:\Users\azureuser\Talend-RemoteEngine-V"{{ tre_version }}"\bin
-        echo "feature:install wrapper `nwrapper:install -n talend-remote-engine `nlogout" | .\trun.bat
+        echo "feature:install wrapper `nwrapper:install -n talend-remote-engine `nsleep 60 `nlogout" | .\trun.bat
         .\talend-remote-engine-service.bat install
     register: result 
     until: result is not failed
