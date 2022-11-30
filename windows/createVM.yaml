@@ -61,6 +61,18 @@
           access: Allow
           priority: 1004
           direction: Inbound
+        - name: 'allow_talend_command'
+          protocol: Tcp
+          destination_port_range: 8003 
+          access: Allow
+          priority: 1005
+          direction: Inbound
+        - name: 'allow_talend_file'
+          protocol: Tcp
+          destination_port_range: 8004 
+          access: Allow
+          priority: 1006
+          direction: Inbound
   - name: Create a network interface
     azure_rm_networkinterface:
       name: "{{ vm_network_interface }}"
@@ -105,12 +117,10 @@
     register: publicipaddresses
   - name: set public ip address fact
     set_fact: publicipaddress="{{ publicipaddresses | json_query('publicipaddresses[0].ip_address')}}"
-  
   - name: Save Public IP to file 
     ansible.builtin.copy:
       dest: /home/ansible/windowsPublicIP.txt 
       content: "{{ publicipaddress }}"
-
   - name: wait for the WinRM port to come online
     wait_for:
       port: 5986
