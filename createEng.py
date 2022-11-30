@@ -6,8 +6,6 @@ from datetime import datetime
 
 
 pToken = "Bearer wHiwDdZWTTasSdvCFIxNmwcSXglP2ozKgnU7qdpKXP1-Sh1z3ygwyJcNkVF6z4H5"
-talendWorkspaces = "https://api.eu.cloud.talend.com/orchestration/workspaces"
-headers = {'Authorization': pToken}
 
 
 def getWorkSpaceAndEnvIds(env="default", personalToken = pToken):
@@ -32,12 +30,12 @@ def getWorkSpaceAndEnvIds(env="default", personalToken = pToken):
             envId = i["environment"]["id"]
             envData = i
             break
-    print("Information about environment remote engine will be on \n")
+    print("Information About Environment \nRemote Engine Will Be On\n")
     print(envData)
     return wrkSpcId, envId
 
 
-def createRemoteEngine(name="testName ", env = "default", personalToken = pToken):
+def createRemoteEngine(enableDebugInStudio = True, name="testName", env = "default", personalToken = pToken):
     """
     Function creates remote engine at Talend Cloud
     @name - name of remoteEngine
@@ -47,21 +45,44 @@ def createRemoteEngine(name="testName ", env = "default", personalToken = pToken
     returns pre-authorized key and data about created engine
     """
     urlRemoteEng = "https://api.eu.cloud.talend.com/tmc/v1.3/runtimes/remote-engines"
-    name = name + str(datetime.now())
+    tmp = name + str(datetime.now())
+    name = tmp.replace(" ", "")
     ids = getWorkSpaceAndEnvIds(env, pToken)
-    payload = {
-    "name": name,
+    vmPubIp = open('/home/python/ubuntuPublicIP.txt', 'r')
+    Ip = vmPubIp.read()
+
+    if enableDebugInStudio == True:
+        payload = {
+        "name": name,
         "environmentId": ids[1],  
-    "workspaceId":  ids[0]}
+        "workspaceId":  ids[0],
+        "debug": {
+        "host": Ip
+        },
+        "description": "Automatically Created Remote Engine With Debugging Jobs In Studio Option Enabled",
+        }
+
+    else:
+        payload = {
+        "name": name,
+        "environmentId": ids[1],  
+        "workspaceId":  ids[0]
+        }
+
     headers = {'Authorization': personalToken, "Content-Type": "application/json", "Accept": "application/json"}
     response = rq.post(url = urlRemoteEng, headers=headers, json=payload)
     txtResp = response.text
     jsonResp = json.loads(txtResp)
+
     print(" \nInformation about newly created Remote Engine \n")
     print(jsonResp)
+
     return jsonResp["preAuthorizedKey"], jsonResp["name"]
 
 
-key, engineName = createRemoteEngine()
-with open('/home/python/preauthorized.key.cfg', 'w') as f:
-    f.write(key)
+try:
+    key, engineName = createRemoteEngine()
+    with open('/home/python/preauthorized.key.cfg', 'w') as f:
+        f.write(key)
+except TypeError:
+    print("\n Please Check Your Access Token \n")
