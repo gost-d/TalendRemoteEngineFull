@@ -79,7 +79,7 @@
 
   - name: Print public IP 
     ansible.builtin.debug:
-      msg: "{{ publicipaddress }}"
+      msg: "{{ publicipaddresses }}"
 
   - name: set public ip address fact
     set_fact: publicipaddress="{{ publicipaddresses | json_query('publicipaddresses[0].ip_address')}}"
