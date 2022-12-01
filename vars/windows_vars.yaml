@@ -5,7 +5,7 @@ virtual_subnet: windowsTalendSubnet
 vm_public_ip: windowsTalendPID
 vm_security_group: windowsTalendSecurityGroup
 vm_network_interface: windowsNIC
-vm_name: winTalendVM
+vm_name: Tal
 vm_size: Standard_D4s_v3
 vm_username: azureuser
 vm_password: Temporary123
