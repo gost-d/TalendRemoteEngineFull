@@ -27,7 +27,6 @@
       resource_group: "{{vm_resource_group}}"
       #allocation_method: Static
       name: "{{ vm_public_ip }}-{{ random_name }}"
-    register: output_ip_address
   - name: Create Network Security Group that allows SSH and Tallend Cloud
     azure_rm_securitygroup:
       resource_group: "{{vm_resource_group}}"
