@@ -4,11 +4,18 @@
   tasks:
   
   - include_vars: /home/ansible/vars/ubuntu_vars.yaml
+  - set_fact:
+        random_resource_group_name: "{{ lookup('password', '/home/ansible/resource_group.txt chars=ascii_lowercase,digits length=8') }}"
 
   - name: Create resource group
     azure_rm_resourcegroup:
-      name: "{{vm_resource_group}}"
+      name: "{{vm_resource_group}}-{{random_resource_group_name}}"
       location: "{{ vm_location }}"
+  - name: Add resource group to the inventory
+    ansible.builtin.lineinfile:
+      path: /home/ansible/ubuntu/azure_rm.yaml
+      regexp: "- ubuntu"
+      line: "- ubuntu-{{ random_resource_group_name }}"
   - name: Create virtual network
     azure_rm_virtualnetwork:
       resource_group: "{{vm_resource_group}}"
