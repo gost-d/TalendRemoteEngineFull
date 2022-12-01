@@ -14,7 +14,7 @@
       name: "{{vm_resource_group}}-{{ random_name }}"
       location: "{{ vm_location }}"
   - name: Add resource group to inventory
-    community.windows.win_lineinfile:
+    ansible.builtin.lineinfile:
       path: /home/ansible/windows/azure_rm.yaml 
       regex: "- windows*"
       line: "- windows-{{ random_name }}"
