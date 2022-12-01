@@ -5,7 +5,7 @@
   
   - include_vars: /home/ansible/vars/ubuntu_vars.yaml
   - set_fact:
-        random_resource_group_name: "{{ ansible_date_time.epoch_int }""
+        random_resource_group_name: ansible_date_time.epoch_int
 
   - name: Create resource group
     azure_rm_resourcegroup:
