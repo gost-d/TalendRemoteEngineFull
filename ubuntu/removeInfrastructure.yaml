@@ -40,3 +40,7 @@
       resource_group: "{{vm_resource_group}}-{{random_resource_group_name}}"
       name: "{{ virtual_network }}"
       state: absent 
+  - name: Remove resource group
+    azure_rm_resourcegroup:
+      name: "{{vm_resource_group}}-{{random_resource_group_name}}"
+      state: absent
