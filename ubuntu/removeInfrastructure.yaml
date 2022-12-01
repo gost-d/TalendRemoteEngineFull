@@ -8,39 +8,35 @@
 
   - name: CRemove VM
     azure_rm_virtualmachine:
-      resource_group: "{{vm_resource_group}}-{{random_resource_group_name}}"
-      name: "{{ vm_name }}"
+      resource_group: "{{vm_resource_group}}"
+      name: "{{ vm_name }}-{{ timestamp_name }}"
       remove_on_absent: all_autocreated
       state: absent 
   - name: Remove virtual network interface card
     azure_rm_networkinterface:
-      resource_group: "{{vm_resource_group}}-{{random_resource_group_name}}"
-      name: "{{ vm_network_interface }}"
+      resource_group: "{{vm_resource_group}}"
+      name: "{{ vm_network_interface }}-{{ timestamp_name }}"
       state: absent 
     register: output_ip_address
   - name: Remove Network Security Group 
     azure_rm_securitygroup:
-      resource_group: "{{vm_resource_group}}-{{random_resource_group_name}}"
-      name: "{{ vm_security_group }}"
+      resource_group: "{{vm_resource_group}}"
+      name: "{{ vm_security_group }}-{{ timestamp_name }}"
       state: absent 
   - name: Remove public IP
     azure_rm_publicipaddress:
-      resource_group: "{{vm_resource_group}}-{{random_resource_group_name}}"
+      resource_group: "{{vm_resource_group}}"
       #allocation_method: Static
-      name: "{{ vm_public_ip }}"
+      name: "{{ vm_public_ip }}-{{ timestamp_name }}"
       state: absent
   - name: Remove subnet
     azure_rm_subnet:
-      resource_group: "{{vm_resource_group}}-{{random_resource_group_name}}"
-      name: "{{ virtual_subnet }}"
-      virtual_network: "{{ virtual_network }}"
+      resource_group: "{{vm_resource_group}}"
+      name: "{{ virtual_subnet }}-{{ timestamp_name }}"
+      virtual_network: "{{ virtual_network }}-{{ timestamp_name }}"
       state: absent
   - name: Remove virtual network
     azure_rm_virtualnetwork:
-      resource_group: "{{vm_resource_group}}-{{random_resource_group_name}}"
-      name: "{{ virtual_network }}"
+      resource_group: "{{vm_resource_group}}"
+      name: "{{ virtual_network }}-{{ timestamp_name }}"
       state: absent 
-  - name: Remove resource group
-    azure_rm_resourcegroup:
-      name: "{{vm_resource_group}}-{{random_resource_group_name}}"
-      state: absent
