@@ -4,7 +4,7 @@
   tasks:
   
   
-  - include_vars: /root/vars/ubuntu_vars.yaml  
+  - include_vars: /home/ansible/vars/ubuntu_vars.yaml  
 
   - name: CRemove VM
     azure_rm_virtualmachine:
