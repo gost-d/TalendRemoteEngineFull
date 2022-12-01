@@ -86,9 +86,9 @@ def createRemoteEngine(vmDistribution = 'ubuntu', enableDebugInStudio = True, na
 try:
     vmDistribution = sys.argv[1]
     enableDebugInStudio = sys.argv[2]
+    env = sys.argv[3]
     pToken = "Bearer wHiwDdZWTTasSdvCFIxNmwcSXglP2ozKgnU7qdpKXP1-Sh1z3ygwyJcNkVF6z4H5"
     name="testName"
-    env = "R&D"
     key, engineName = createRemoteEngine(vmDistribution=vmDistribution, enableDebugInStudio=enableDebugInStudio, name=name, env=env, personalToken = pToken)
     with open('/home/python/preauthorized.key.cfg', 'w') as f:
         f.write(key)
