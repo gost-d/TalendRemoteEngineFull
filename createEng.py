@@ -54,7 +54,7 @@ def createRemoteEngine(vmDistribution = 'ubuntu', enableDebugInStudio = True, na
     vmPubIp = open('/home/python/' + vmDistribution + 'PublicIP.txt', 'r')
     Ip = vmPubIp.read()
 
-    if enableDebugInStudio == True:
+    if enableDebugInStudio == "True":
         payload = {
         "name": name,
         "environmentId": ids[1],  
