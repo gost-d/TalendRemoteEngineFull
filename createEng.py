@@ -26,7 +26,7 @@ def getWorkSpaceAndEnvIds(env="default", personalToken = pToken):
     txtResp = response.text
     jsonResp = json.loads(txtResp)
     for i in jsonResp:
-        if i["environment"]["name"] == env and i["name"] == "R&D_DEV":
+        if i["environment"]["name"] == env and i["owner"] == "sergei.raikov":
             wrkSpcId = i["id"]
             envId = i["environment"]["id"]
             envData = i
