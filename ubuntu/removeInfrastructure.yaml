@@ -37,7 +37,7 @@
       state: absent
   - name: Remove virtual network
     azure_rm_virtualnetwork:
-      resource_group: "{{vm_resource_group}}"
+      resource_group: "{{vm_resource_group}}-{{ timestamp_name }}"
       name: "{{ virtual_network }}-{{ timestamp_name }}"
       state: absent 
   - name: Create resource group
