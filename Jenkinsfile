@@ -28,7 +28,7 @@ node {
 
     stage('Create Talend Remote Engine') {
 
-        sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/python --rm 172.22.6.131:8083/devops/python:1.1 python3 /home/python/createEng.py $ostype $enable_debugging_studio')
+        sh('docker run -v /home/jenkins/jenkins_home/workspace/Talend_Remote_Engine_Create_Install:/home/python --rm 172.22.6.131:8083/devops/python:1.1 python3 /home/python/createEng.py $ostype $enable_debugging_studio $talend_cloud_environment')
     }
 
     stage('Install Talend Remote Engine') {
