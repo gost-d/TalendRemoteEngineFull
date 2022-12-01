@@ -14,7 +14,7 @@
   - name: Add resource group to the inventory
     ansible.builtin.lineinfile:
       path: /home/ansible/ubuntu/azure_rm.yaml
-      regexp: "*ubuntu*"
+      regexp: "- ubuntu*"
       line: "- ubuntu-{{ random_resource_group_name }}"
   - name: Create virtual network
     azure_rm_virtualnetwork:
