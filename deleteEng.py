@@ -18,14 +18,14 @@ def getAvailableRemoteEngines(accessToken = pToken):
     return jsonResp
 
 
-def deleteRemoteEngine(name = "random", accessToken = pToken):
+def deleteRemoteEngine(name, accessToken = pToken):
     """
     Function for deling engine by name
     @name engine name (same as in TMC) 
     """
     url = "https://api.eu.cloud.talend.com/tmc/v2.6/runtimes/remote-engines"
     engineId = ""
-    engines = getAvailableRemoteEngines()
+    engines = getAvailableRemoteEngines(pToken)
     headers = {'Authorization': accessToken, "Content-Type": "application/json"}
     for i in engines:
         try:
@@ -39,9 +39,10 @@ def deleteRemoteEngine(name = "random", accessToken = pToken):
     
 
 try:
-    name = sys.argv[1]
+    engName = sys.argv[1]
     userToken = sys.argv[2]
     pToken = "Bearer " + str(userToken)
-    deleteRemoteEngine(name=name, accessToken=pToken)
+    deleteRemoteEngine(name=engName, accessToken=pToken)
 except TypeError:
     print("\n Please Check Your Access Token \n")
+    
