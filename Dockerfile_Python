@@ -5,3 +5,5 @@ RUN  pip install requests
 RUN groupadd -g 995 dockergroup && \ 
     useradd -m -u 1008 -g 995 -s /bin/bash python  && \
     chown -R python:dockergroup /home/python
+
+USER python
